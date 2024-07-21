@@ -24,7 +24,7 @@ get_data = {
 }
 
 delete_data = {
-    'action': 'delete from',
+    'action': 'delete',
     **mt_data
 }
 

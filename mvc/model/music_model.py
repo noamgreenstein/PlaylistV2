@@ -17,7 +17,7 @@ class MusicModel:
     def use_db(self, data):
         try:
             return self.db.execute(data['action'] == 'insert into', data['action'] == 'select'
-                                   or data['action'] == 'delete from', **data)
+                                   or data['action'] == 'delete', **data)
         except AttributeError:
             return 'Error'
 

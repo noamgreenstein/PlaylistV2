@@ -171,16 +171,18 @@ def update_ratings(data, n_clicks):
     Output('data-table', 'data', allow_duplicate=True),
     State('library-selector', 'value'),
     Input('delete-btn', 'n_clicks'),
+    State('data-table', 'data'),
     State('data-table', 'selected_rows'),
     prevent_initial_call=True
 )
-def delete_data(library_value, n_clicks, rows):
+def delete_data(library_value, n_clicks, data, rows):
     if n_clicks > 0:
-        print(n_clicks)
-        delete = c.delete_data
-        delete['table'] = library_value
-        param_str = f'{library_value[:-1]}_id = '
-        print(rows)
+        for row in rows:
+            delete = c.delete_data
+            delete['table'] = library_value
+            param_str = f'{library_value[:-1]}_id = "{data[row]["ID"]}"'
+            delete['params'] = param_str
+            model.use_db(delete)
         return get_data(library_value)
     return get_data(library_value)
 
